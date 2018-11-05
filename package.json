@@ -1,6 +1,6 @@
 {
   "name": "aws-cognito-promises-refact",
-  "version": "1.6.4",
+  "version": "1.6.7",
   "description": "AWS Cognito promise library",
   "repository": {
     "type": "git",
