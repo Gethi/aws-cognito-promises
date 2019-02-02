@@ -1,8 +1,5 @@
-import { getUser } from './config'
 
-export default function() {
-  const cognitoUser = getUser()
-
+export default async (cognitoUser)=> {
   if (cognitoUser) {
     return new Promise((resolve, reject) => {
       cognitoUser.getSession((err, session) => {

@@ -10,7 +10,7 @@ const config = {
     library: 'aws-cognito-promises',
     libraryTarget: 'umd'
   },
-  externals: ['babel-polyfill', 'amazon-cognito-identity-js', 'aws-sdk'],
+  externals: ['babel-polyfill', 'amazon-cognito-identity-js', 'aws-amplify'],
   module: {
     rules: [
       {

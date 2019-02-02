@@ -1,7 +1,7 @@
 import { getUser } from './config'
 
-export default function() {
-  const cognitoUser = getUser()
+export default async ()=> {
+  const cognitoUser = await getUser();
 
   if (cognitoUser) {
     cognitoUser.signOut()

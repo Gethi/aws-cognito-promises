@@ -1,23 +1,17 @@
-import { Config, CognitoIdentityCredentials } from 'aws-sdk'
-
-import { CognitoUserPool } from 'amazon-cognito-identity-js'
+import Amplify, { Auth } from 'aws-amplify';
 
 let appConfig
 let userPool
 let currentUser
 
-export const set = config => {
-  appConfig = config
+export const set = async ampConfig => {
+  appConfig = ampConfig;
 
-  Config.region = appConfig.region
-  Config.credentials = new CognitoIdentityCredentials({
-    IdentityPoolId: appConfig.IdentityPoolId
-  })
-
-  userPool = new CognitoUserPool({
-    UserPoolId: appConfig.UserPoolId,
-    ClientId: appConfig.ClientId
-  })
+  Amplify.configure(ampConfig);
+  const cognitoUser = await Auth.currentAuthenticatedUser({
+      bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  });
+  userPool = cognitoUser.pool;
 }
 
 export const get = () => {
@@ -28,8 +22,11 @@ export const getUserPool = () => {
   return userPool
 }
 
-export const getUser = () => {
-  return userPool.getCurrentUser()
+export const getUser = async () => {
+  const cognitoUser = await Auth.currentAuthenticatedUser({
+      bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  });
+  return cognitoUser;
 }
 
 export const setCurrentUserSession = user => {
